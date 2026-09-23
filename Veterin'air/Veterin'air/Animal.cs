@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Veterin_air
 {
-    internal class Animal
+    public class Animal
     {
 
         #region Champs
@@ -33,7 +33,7 @@ namespace Veterin_air
             
         }
 
-        public string age
+        public int age
         {
             get { return _age; }
             set
