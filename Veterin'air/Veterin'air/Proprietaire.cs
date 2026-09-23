@@ -252,7 +252,36 @@ namespace Veterin_air
 
         public void nourrir(Animal unAnimal, RegimeAlimentaire typeRegime)
         {
-            test
+            string messageException = "";
+
+            if (unAnimal.testRegimeAlimentaire(typeRegime))
+            {
+                messageException = "Régime Alimentaire non respecté";
+                throw new Exception(messageException);
+            }
+
+            int gainGrammes;
+
+            switch (typeRegime)
+            {
+                case RegimeAlimentaire.Carnivore:
+                    gainGrammes = 300; 
+                    break;
+
+                case RegimeAlimentaire.Herbivore:
+                    gainGrammes = 150; 
+                    break;
+
+                case RegimeAlimentaire.Omnivore:
+                    gainGrammes = 200; 
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(typeRegime), "Type d'aliment invalide.");
+            }
+
+            unAnimal.Grossir(gainGrammes);
+
         }
         #endregion
 
@@ -260,7 +289,7 @@ namespace Veterin_air
 
         public override string ToString()
         {
-            string description = this.nom + " [" + this.soldeCompte + " €]";
+            string description = this.nom + " [" + this.soldeCompte + " €, " + this._moyPaiement + "]";
 
             description += "\nListe des animaux de compagnie : \n";
 
