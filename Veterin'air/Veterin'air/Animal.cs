@@ -15,6 +15,7 @@ namespace Veterin_air
         private float _poids;
         private string _numeroPuce;
         private Espece _espece;
+        private RegimeAlimentaire _regimeAlimentaire;
         #endregion
 
         #region Propriétés
@@ -77,6 +78,12 @@ namespace Veterin_air
         {
             get { return _espece; }
             set { _espece = value; }
+        }
+
+        public RegimeAlimentaire regimeAlimentaire
+        {
+            get { return _regimeAlimentaire; }
+            set { _regimeAlimentaire = value; }
         }
 
         #endregion
