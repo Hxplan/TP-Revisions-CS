@@ -175,19 +175,16 @@ namespace Veterin_air
             }
         }
 
-        public void testRegimeAlimentaire(RegimeAlimentaire unRegime)
+        public bool testRegimeAlimentaire(RegimeAlimentaire unRegime)
         {
-            string uneExeption = "";
+            bool uneExeption = false;
 
-            if (!this.lesregimesAlimentaires.Contains(unRegime))
+            if (!this.lesRegimesAlimentaires.Contains(unRegime))
             {
-                uneExeption += "Le régime alimentaire n'est pas compatible avec l'espèce de l'animal.";
-            }
+                uneExeption = true;
+            }       
 
-            if (uneExeption != "")
-            {
-                throw new ArgumentException(uneExeption);
-            }
+            return uneExeption;
         }
            
 
