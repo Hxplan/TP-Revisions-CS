@@ -16,6 +16,9 @@ namespace Veterin_air
         private string _numeroPuce;
         private Espece _espece;
         private RegimeAlimentaire _regimeAlimentaire;
+
+        private List<RegimeAlimentaire> lesregimesAlimentaires = new List<RegimeAlimentaire>();
+
         #endregion
 
         #region Propriétés
@@ -125,6 +128,37 @@ namespace Veterin_air
                 throw new ArgumentException("Le poids ne peut pas être négatif.");
             }
 
+        }
+
+        public void EstEnSurpoids()
+        {
+            if (poids > 100)
+            {
+                Console.WriteLine("L'animal est en surpoids.");
+            }
+            else
+            {
+                Console.WriteLine("L'animal n'est pas en surpoids.");
+            }
+        }
+        
+        public void AddUnRegimeAlimentaire(RegimeAlimentaire regime)
+        {
+            if (!lesregimesAlimentaires.Contains(regime))
+            {
+                lesregimesAlimentaires.Add(regime);
+            }
+        }
+
+        public void AddRegimeAlimentaire(List<RegimeAlimentaire> regimes)
+        {
+            foreach (RegimeAlimentaire regime in regimes)
+            {
+                if (!lesregimesAlimentaires.Contains(regime))
+                {
+                    lesregimesAlimentaires.Add(regime);
+                }
+            }
         }
         #endregion
 
