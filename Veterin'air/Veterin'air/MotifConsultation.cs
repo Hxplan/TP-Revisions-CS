@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Veterin_air
 {
-    public enum Espece
+    public enum MotifConsultation
     {
-        Canide,
-        Felin,
-        Rongeur,
-        Oiseau,
-        Reptile
+        Vaccination,
+        ControleAnnuel,
+        Chirurgie,
+        Urgence,
+        Identification,
+        Inconnu
     }
 }

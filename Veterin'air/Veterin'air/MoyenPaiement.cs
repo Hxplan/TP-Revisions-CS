@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Veterin_air
 {
-    public enum Espece
+    public enum MoyenPaiement
     {
-        Canide,
-        Felin,
-        Rongeur,
-        Oiseau,
-        Reptile
+        CarteBancaire,
+        Especes,
+        Cheque,
+        Virement,
+        Inconnu
     }
 }

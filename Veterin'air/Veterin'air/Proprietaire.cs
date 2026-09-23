@@ -18,6 +18,10 @@ namespace Veterin_air
 
         private List<Animal> lesAnimaux = new List<Animal>();
 
+        private MotifConsultation _motif = MotifConsultation.Inconnu;
+
+        private MoyenPaiement _moyPaiement = MoyenPaiement.Inconnu;
+
         #endregion
 
         #region Propriétés
@@ -77,7 +81,7 @@ namespace Veterin_air
             _soldeCompte = soldeCompte;
         }
 
-        // Get / modif de la liste des animaux
+        // Get animaux
         public List<Animal> getLesAnimaux()
         {
             List<Animal> copieDesAnimaux = new List<Animal>();
@@ -88,20 +92,7 @@ namespace Veterin_air
             }
             return copieDesAnimaux;
         }
-        public List<Animal> addAnimal(Animal unAnimal)
-        {
-            lesAnimaux.Add(unAnimal);
-            return lesAnimaux;
-        }
-
-        public List<Animal> AddLesAnimaux(List<Animal> lesAnimaux)
-        {
-            foreach (Animal unAnimal in lesAnimaux)
-            {
-                lesAnimaux.Add(unAnimal);
-            }
-            return lesAnimaux;
-        }
+        
 
         #endregion
 
@@ -125,6 +116,15 @@ namespace Veterin_air
             this.soldeCompte = soldeCompte;
         }
 
+        public Proprietaire(string nom, string prenom, float soldeCompte, MotifConsultation motif, MoyenPaiement moyPaiement)
+        {
+            this.nom = nom;
+            this.prenom = prenom;
+            this.soldeCompte = soldeCompte;
+            this._motif = motif;
+            this._moyPaiement = moyPaiement;
+        }
+
         public Proprietaire(string nom, string prenom, float soldeCompte, List<Animal> lesAnimaux)
         {
             this.nom = nom;
@@ -133,17 +133,95 @@ namespace Veterin_air
             this.lesAnimaux = lesAnimaux;
         }
 
+        public Proprietaire(string nom, string prenom, float soldeCompte, List<Animal> lesAnimaux, MotifConsultation motif, MoyenPaiement moyPaiement)
+        {
+            this.nom = nom;
+            this.prenom = prenom;
+            this.soldeCompte = soldeCompte;
+            this.lesAnimaux = lesAnimaux;
+            this._motif = motif;
+            this._moyPaiement = moyPaiement;
+        }
+
         #endregion
 
         #region Méthodes
 
+        public List<Animal> addAnimal(Animal unAnimal)
+        {
+            lesAnimaux.Add(unAnimal);
+            return lesAnimaux;
+        }
 
+        public List<Animal> AddLesAnimaux(List<Animal> lesAnimaux)
+        {
+            foreach (Animal unAnimal in lesAnimaux)
+            {
+                lesAnimaux.Add(unAnimal);
+            }
+            return lesAnimaux;
+        }
+
+        public List<Animal> rmAnimal(int index)
+        {
+            lesAnimaux.RemoveAt(index);
+            return lesAnimaux;
+        }
+
+        public void soigner(Animal unAnimal, MotifConsultation leMotif)
+        {
+            string messageException = "";
+
+            float tarif;
+
+            switch (_motif)
+            {
+                case MotifConsultation.ControleAnnuel:
+                    tarif = 35;
+                    break;
+
+                case MotifConsultation.Vaccination:
+                    tarif = 55;
+                    break;
+
+                case MotifConsultation.Identification:
+                    tarif = 70;
+                    break;
+
+                case MotifConsultation.Chirurgie:
+                    tarif = 250;
+                    break;
+
+                case MotifConsultation.Urgence:
+                    tarif = 120;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(_motif), "Motif de consultation non reconnu.");
+            }
+
+            if (this.soldeCompte < tarif)
+            {
+                messageException += "\nAttention, le solde est insuffisant !";
+            }
+
+        } 
 
         #endregion
 
         #region Méthodes redéfinie
 
+        public override string ToString()
+        {
+            string description = this.nom + " [" + this.soldeCompte + " €]";
 
+            description += "\nListe des animaux de compagnie : \n";
+
+            foreach (Animal unAnimal in lesAnimaux)
+            {
+                description += "    - " + unAnimal.ToString() + "\n";
+            }
+            return description;
+        }
 
         #endregion
 

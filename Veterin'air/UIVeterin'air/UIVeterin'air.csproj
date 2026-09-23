@@ -79,5 +79,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Veterin%27air\Veterin%27air.csproj">
+      <Project>{badbc53a-64f2-49a4-b35c-5ad02bc97cdc}</Project>
+      <Name>Veterin%27air</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
