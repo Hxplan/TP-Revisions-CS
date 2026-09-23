@@ -116,6 +116,14 @@ namespace Veterin_air
             this.soldeCompte = soldeCompte;
         }
 
+        public Proprietaire(string nom, string prenom, float soldeCompte, MotifConsultation motif)
+        {
+            this.nom = nom;
+            this.prenom = prenom;
+            this.soldeCompte = soldeCompte;
+            this._motif = motif;
+        }
+
         public Proprietaire(string nom, string prenom, float soldeCompte, MotifConsultation motif, MoyenPaiement moyPaiement)
         {
             this.nom = nom;
@@ -133,6 +141,15 @@ namespace Veterin_air
             this.lesAnimaux = lesAnimaux;
         }
 
+        public Proprietaire(string nom, string prenom, float soldeCompte, List<Animal> lesAnimaux, MotifConsultation motif)
+        {
+            this.nom = nom;
+            this.prenom = prenom;
+            this.soldeCompte = soldeCompte;
+            this.lesAnimaux = lesAnimaux;
+            this._motif = motif;
+        }
+
         public Proprietaire(string nom, string prenom, float soldeCompte, List<Animal> lesAnimaux, MotifConsultation motif, MoyenPaiement moyPaiement)
         {
             this.nom = nom;
@@ -147,33 +164,46 @@ namespace Veterin_air
 
         #region Méthodes
 
+        // Ajouter un animal à la liste du propriétaire
         public List<Animal> addAnimal(Animal unAnimal)
         {
-            lesAnimaux.Add(unAnimal);
+            if (!lesAnimaux.Contains(unAnimal))
+                {
+                    lesAnimaux.Add(unAnimal);
+                }
+            
             return lesAnimaux;
         }
 
-        public List<Animal> AddLesAnimaux(List<Animal> lesAnimaux)
+
+        // Ajouter une liste d'animal à la liste du propriétaire
+        public List<Animal> addLesAnimaux(List<Animal> lesAnimaux)
         {
             foreach (Animal unAnimal in lesAnimaux)
             {
-                lesAnimaux.Add(unAnimal);
+                if (!lesAnimaux.Contains(unAnimal))
+                {
+                    lesAnimaux.Add(unAnimal);
+                }
             }
             return lesAnimaux;
         }
 
+        // Retirer un animal de le liste du propriétaire
         public List<Animal> rmAnimal(int index)
         {
             lesAnimaux.RemoveAt(index);
             return lesAnimaux;
         }
 
+        // Deposer de l'argent sur le compte du propriétaire
         public float deposerCompte(float montant)
         {
             this.soldeCompte += montant;
             return this.soldeCompte;
         }
 
+        // Soiger un animal du propriétaire en déclarant le motif
         public void soigner(Animal unAnimal, MotifConsultation leMotif)
         {
             string messageException = "";
@@ -213,11 +243,17 @@ namespace Veterin_air
             this.facturer(tarif);
         }
 
+        // facturer le propriétaire
         public void facturer(float tarif)
         {
             this.soldeCompte -= tarif;
         }
 
+
+        public void nourrir()
+        {
+
+        }
         #endregion
 
         #region Méthodes redéfinie
