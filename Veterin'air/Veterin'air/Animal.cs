@@ -166,7 +166,23 @@ namespace Veterin_air
                 Console.WriteLine("L'animal n'est pas en surpoids.");
             }
         }
-        
+
+        public void testRegimeAlimentaire(RegimeAlimentaire unRegime)
+        {
+            string uneExeption = "";
+
+            if (!this.lesregimesAlimentaires.Contains(unRegime))
+            {
+                uneExeption += "Le régime alimentaire n'est pas compatible avec l'espèce de l'animal.";
+            }
+
+            if (uneExeption != "")
+            {
+                throw new ArgumentException(uneExeption);
+            }
+        }
+           
+
         public void AddUnRegimeAlimentaire(RegimeAlimentaire regime)
         {
             if (!lesregimesAlimentaires.Contains(regime))
