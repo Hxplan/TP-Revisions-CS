@@ -12,12 +12,12 @@ namespace Veterin_air
         #region Champs
         private string _nom;
         private int _age;
-        private float _poids;
+        private float _poids; //en gramme
         private string _numeroPuce;
         private Espece _espece;
         private RegimeAlimentaire _regimeAlimentaire;
 
-        private List<RegimeAlimentaire> lesregimesAlimentaires = new List<RegimeAlimentaire>();
+        private List<RegimeAlimentaire> lesRegimesAlimentaires = new List<RegimeAlimentaire>();
 
         #endregion
 
@@ -83,12 +83,19 @@ namespace Veterin_air
             set { _espece = value; }
         }
 
-        public RegimeAlimentaire regimeAlimentaire
+        public List<RegimeAlimentaire> LesRegimesAlimentaires
         {
-            get { return _regimeAlimentaire; }
-            set { _regimeAlimentaire = value; }
+            get
+            {
+                List<RegimeAlimentaire> copie = new List<RegimeAlimentaire>();
+                foreach (RegimeAlimentaire unRegime in lesRegimesAlimentaires)
+                {
+                    copie.Add(unRegime);
+                }
+                return copie;
+            }
         }
-
+        
         #endregion
 
         #region Constructeurs
@@ -162,9 +169,9 @@ namespace Veterin_air
         
         public void AddUnRegimeAlimentaire(RegimeAlimentaire regime)
         {
-            if (!lesregimesAlimentaires.Contains(regime))
+            if (!lesRegimesAlimentaires.Contains(regime))
             {
-                lesregimesAlimentaires.Add(regime);
+                lesRegimesAlimentaires.Add(regime);
             }
         }
 
@@ -172,9 +179,9 @@ namespace Veterin_air
         {
             foreach (RegimeAlimentaire regime in regimes)
             {
-                if (!lesregimesAlimentaires.Contains(regime))
+                if (!lesRegimesAlimentaires.Contains(regime))
                 {
-                    lesregimesAlimentaires.Add(regime);
+                    lesRegimesAlimentaires.Add(regime);
                 }
             }
         }

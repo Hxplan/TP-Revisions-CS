@@ -3,7 +3,7 @@
   <Class Name="Veterin_air.Animal">
     <Position X="4" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAEBAAAQAAEAAAAAAAADCBAEAwABAAAAAAABAA=</HashCode>
+      <HashCode>AAEAAAAEBAAAQAAEIAAAIEAArCBAAgwABAAABAAABAA=</HashCode>
       <FileName>Animal.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -12,15 +12,18 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Veterin_air.Proprietaire">
-    <Position X="6.5" Y="0.5" Width="2.25" />
+    <Position X="7" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAIIAAEAAAUAgEgAAAIAAABAAAIhQAACCIggAgAAM=</HashCode>
+      <HashCode>AAAAIIAAEAAAUAgEgAAAIAAABCAAIhQAAACIggAgAAM=</HashCode>
       <FileName>Proprietaire.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_motif" />
       <Field Name="_moyPaiement" />
     </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="lesAnimaux" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Enum Name="Veterin_air.Espece">
     <Position X="0.75" Y="0.75" Width="1.5" />
