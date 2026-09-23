@@ -119,6 +119,24 @@ namespace Veterin_air
             age++;
         }
 
+        public void Grossir(float poids)
+        {
+            poids += poids;
+            if (poids < 0)
+            {
+                throw new ArgumentException("Le poids ne peut pas être négatif.");
+            }
+        }
+
+        public void FaireduSport(float poids)
+        {
+            poids -= poids;
+            if (poids < 0)
+            {
+                throw new ArgumentException("Le poids ne peut pas être négatif.");
+            }
+        }
+
         public void Peser(float poids)
         {
 
