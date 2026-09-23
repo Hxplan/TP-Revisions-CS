@@ -89,7 +89,7 @@ namespace Veterin_air
             _age = 0;
             _poids = 0.0f;
             _numeroPuce = "000000000000000";
-            _espece = Espece.Chien;
+            _espece = Espece.Inconnu;
         }
 
         public Animal(string nom, int age, float poids, string numeroPuce, Espece espece)
