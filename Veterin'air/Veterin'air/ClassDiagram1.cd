@@ -3,12 +3,13 @@
   <Class Name="Veterin_air.Animal">
     <Position X="4" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAEBAAAQAAEIAAAIEAArCBAAgwABAAABAAABAA=</HashCode>
+      <HashCode>AAEAAAIEBAAAQAAEoAAAIEAArCBAAgwABAAABAAABAA=</HashCode>
       <FileName>Animal.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_espece" />
       <Field Name="_regimeAlimentaire" />
+      <Field Name="_leProprietaire" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Veterin_air.Proprietaire">

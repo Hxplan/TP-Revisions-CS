@@ -96,9 +96,6 @@ namespace Veterin_air
                 return copie;
             }
         }
-<<<<<<< HEAD
-        
-=======
 
         public Proprietaire leProprietaire
         {
@@ -106,7 +103,7 @@ namespace Veterin_air
             set { _leProprietaire = value; }
         }
 
->>>>>>> 6b79d7b163f5c75d808c74dad4655646fb6a4ffa
+
         #endregion
 
         #region Constructeurs
