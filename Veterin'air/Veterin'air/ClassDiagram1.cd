@@ -3,17 +3,18 @@
   <Class Name="Veterin_air.Animal">
     <Position X="4" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAEBAAAQAAEAAAAAAAADCAAAAwABAAAAAAABAA=</HashCode>
+      <HashCode>AAEAAAAEBAAAQAAEAAAAAAAADCBAEAwABAAAAAAABAA=</HashCode>
       <FileName>Animal.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_espece" />
+      <Field Name="_regimeAlimentaire" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Veterin_air.Proprietaire">
     <Position X="6.5" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAIIAAAAAAUAgEgAAAIAAABAAAIhQAACCIAgAgAAM=</HashCode>
+      <HashCode>AAAAIIAAEAAAUAgEgAAAIAAABAAAIhQAACCIggAgAAM=</HashCode>
       <FileName>Proprietaire.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -24,7 +25,7 @@
   <Enum Name="Veterin_air.Espece">
     <Position X="0.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAAQAAAAAAAIAAAAAgAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <HashCode>AAABAAAAAQAAgAAAAIAAAAAgAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Espece.cs</FileName>
     </TypeIdentifier>
   </Enum>
@@ -45,7 +46,7 @@
   <Enum Name="Veterin_air.RegimeAlimentaire">
     <Position X="0.75" Y="3.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>BAAAAAAAAAAAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>BAAAAAAAAAAAgAAAAAAAAAABAAIAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>RegimeAlimentaire.cs</FileName>
     </TypeIdentifier>
   </Enum>
