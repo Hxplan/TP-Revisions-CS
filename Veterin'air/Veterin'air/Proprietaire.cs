@@ -252,10 +252,10 @@ namespace Veterin_air
 
         public void nourrir(Animal unAnimal, RegimeAlimentaire typeRegime)
         {
-            if (!unAnimal.lesRegimesAlimentaires.)
-            {
+            //if (!unAnimal.lesRegimesAlimentaires.)
+            //{
 
-            }
+            //}
         }
         #endregion
 

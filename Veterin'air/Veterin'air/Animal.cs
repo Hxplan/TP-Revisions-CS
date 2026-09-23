@@ -15,6 +15,7 @@ namespace Veterin_air
         private float _poids; //en gramme
         private string _numeroPuce;
         private Espece _espece;
+        private Proprietaire _leProprietaire;
         private RegimeAlimentaire _regimeAlimentaire;
 
         private List<RegimeAlimentaire> lesRegimesAlimentaires = new List<RegimeAlimentaire>();
@@ -95,7 +96,17 @@ namespace Veterin_air
                 return copie;
             }
         }
+<<<<<<< HEAD
         
+=======
+
+        public Proprietaire leProprietaire
+        {
+            get { return _leProprietaire; }
+            set { _leProprietaire = value; }
+        }
+
+>>>>>>> 6b79d7b163f5c75d808c74dad4655646fb6a4ffa
         #endregion
 
         #region Constructeurs

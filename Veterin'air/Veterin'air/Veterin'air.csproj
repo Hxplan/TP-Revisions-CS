@@ -46,7 +46,6 @@
     <Compile Include="Main.cs" />
     <Compile Include="MotifConsultation.cs" />
     <Compile Include="MoyenPaiement.cs" />
-    <Compile Include="Nourriture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proprietaire.cs" />
     <Compile Include="RegimeAlimentaire.cs" />
