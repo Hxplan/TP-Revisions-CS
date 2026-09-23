@@ -15,6 +15,7 @@ namespace Veterin_air
         private float _poids;
         private string _numeroPuce;
         private Espece _espece;
+        private Proprietaire _leProprietaire;
         private RegimeAlimentaire _regimeAlimentaire;
 
         private List<RegimeAlimentaire> lesregimesAlimentaires = new List<RegimeAlimentaire>();
@@ -87,6 +88,12 @@ namespace Veterin_air
         {
             get { return _regimeAlimentaire; }
             set { _regimeAlimentaire = value; }
+        }
+
+        public Proprietaire leProprietaire
+        {
+            get { return _leProprietaire; }
+            set { _leProprietaire = value; }
         }
 
         #endregion
