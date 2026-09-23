@@ -168,6 +168,12 @@ namespace Veterin_air
             return lesAnimaux;
         }
 
+        public float deposerCompte(float montant)
+        {
+            this.soldeCompte += montant;
+            return this.soldeCompte;
+        }
+
         public void soigner(Animal unAnimal, MotifConsultation leMotif)
         {
             string messageException = "";
@@ -204,7 +210,13 @@ namespace Veterin_air
                 messageException += "\nAttention, le solde est insuffisant !";
             }
 
-        } 
+            this.facturer(tarif);
+        }
+
+        public void facturer(float tarif)
+        {
+            this.soldeCompte -= tarif;
+        }
 
         #endregion
 
