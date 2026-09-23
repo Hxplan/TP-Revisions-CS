@@ -119,5 +119,14 @@ namespace Veterin_air
             }
 
         }
+        #endregion
+
+        #region Overrides
+
+        public override string ToString()
+        {
+            return $"Nom: {Nom}, Age: {age}, Poids: {poids}, Numéro de puce: {numeroPuce}, Espèce: {espece}";
+        }
+        #endregion
     }
 }
