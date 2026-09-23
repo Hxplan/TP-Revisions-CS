@@ -12,6 +12,7 @@ namespace Veterin_air
         Felin,
         Rongeur,
         Oiseau,
-        Reptile
+        Reptile,
+        Inconnu
     }
 }

@@ -10,6 +10,7 @@ namespace Veterin_air
     {
         Carnivore,
         Herbivore,
-        Omnivore
+        Omnivore,
+        Inconnu
     }
 }
