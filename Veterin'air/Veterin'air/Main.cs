@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Veterin_air
 {
-    public class Class1
+    public class Main
     {
     }
 }
