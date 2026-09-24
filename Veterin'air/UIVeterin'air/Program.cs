@@ -21,11 +21,11 @@ namespace UIVeterin_air
 
             //Demo.demo2_NourirAnimal();
 
-            Demo.demo3_NourirAnimalException();
+            //Demo.demo3_NourirAnimalException();
 
             //Demo.demo4_NourirAnimalException2();
 
-            //Demo.demo5_SoignerAnimal();
+            Demo.demo5_SoignerAnimal();
 
             //Demo.demo6_SoignerAnimalException();
 

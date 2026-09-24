@@ -371,7 +371,8 @@ namespace Veterin_air
         {
             string description = this.prenom + " " + this.nom +"\n" +
                 "Solde de : " + this.soldeCompte + " €\n" +
-                "Moyen de paiement : " + this._moyPaiement + "\n";
+                "Moyen de paiement : " + this._moyPaiement + "\n" +
+                "Motif de visite : " + this._motif + "\n";
 
             description += "\nListe des animaux de compagnie ("+ lesAnimaux.Count() +"): \n";
 
