@@ -13,7 +13,10 @@ namespace UIVeterin_air
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new UI());
+            //Application.Run(new UI());
+
+            Demo.demo1_CreationObjets();
+           
         }
     }
 }
