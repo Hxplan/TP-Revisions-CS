@@ -15,9 +15,18 @@ namespace UIVeterin_air
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new UI());
 
+            #region Demo
+
             //Demo.demo1_CreationObjets();
 
-            Demo.demo2_NourirAnimal();
+            //Demo.demo2_NourirAnimal();
+
+            //Demo.demo3_NourirAnimalException();
+
+            //Demo.demo4_NourirAnimalException2();
+
+            Demo.demo5_SoignerAnimal();
+            #endregion
         }
     }
 }

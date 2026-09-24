@@ -21,7 +21,7 @@ namespace UIVeterin_air
             Console.WriteLine(unProprietaire.ToString());
 
             Console.WriteLine("===== Ajout d'un animal =====");
-            Animal unAnimal = new Animal("chat",12,10,"156898560486587",Espece.Felin);
+            Animal unAnimal = new Animal("chat",12, 10000, "156898560486587",Espece.Felin);
             unProprietaire.addAnimal(unAnimal);
 
             Console.WriteLine(unProprietaire.ToString());
@@ -30,8 +30,6 @@ namespace UIVeterin_air
 
         public static void demo2_NourirAnimal()
         {
-            Console.WriteLine("===== Création des objets =====");
-
             Proprietaire unProprietaire = new Proprietaire("Dupont", "Jean");
 
             Animal monChat = new Animal("chat", 12, 10000, "156898560486587", Espece.Felin);
@@ -42,25 +40,58 @@ namespace UIVeterin_air
             Console.WriteLine("===== Nourir =====");
             Console.WriteLine(monChat.ToString());
             unProprietaire.nourrirAnimal(monChat, RegimeAlimentaire.Carnivore);
-            Console.WriteLine(unProprietaire.ToString());
+            Console.WriteLine(monChat.ToString());
 
         }
 
-        public static void demo2_NourirAnimalException()
+        public static void demo3_NourirAnimalException()
         {
-            Console.WriteLine("===== Création des objets =====");
 
             Proprietaire unProprietaire = new Proprietaire("Dupont", "Jean");
 
-            Animal monChat = new Animal("chat", 12, 10, "156898560486587", Espece.Felin);
+            Animal monChat = new Animal("chat", 12, 10000, "156898560486587", Espece.Felin);
             monChat.AddUnRegimeAlimentaire(RegimeAlimentaire.Carnivore);
 
             unProprietaire.addAnimal(monChat);
 
             Console.WriteLine("===== Nourir =====");
 
+            unProprietaire.nourrirAnimal(monChat, RegimeAlimentaire.Herbivore);
+            Console.WriteLine(monChat.ToString());
+
+        }
+
+        public static void demo4_NourirAnimalException2()
+        {
+
+            Proprietaire unProprietaire = new Proprietaire("Dupont", "Jean");
+
+            Animal monChat = new Animal("chat", 12, 10000, "156898560486587", Espece.Felin);
+            monChat.AddUnRegimeAlimentaire(RegimeAlimentaire.Carnivore);
+
+            //unProprietaire.addAnimal(monChat);
+
+            Console.WriteLine("===== Nourir =====");
+
             unProprietaire.nourrirAnimal(monChat, RegimeAlimentaire.Carnivore);
-            Console.WriteLine(unProprietaire.ToString());
+            Console.WriteLine(monChat.ToString());
+
+        }
+
+        public static void demo5_SoignerAnimal()
+        {
+
+            Proprietaire unProprietaire = new Proprietaire("Dupont", "Jean");
+
+            Animal monChien = new Animal("chien", 7, 15000, "789541048658745", Espece.Canide);
+            monChien.AddUnRegimeAlimentaire(RegimeAlimentaire.Carnivore);
+
+            unProprietaire.addAnimal(monChien);
+
+            Console.WriteLine("===== Soigner =====");
+
+            unProprietaire.faireSoigner(monChien);
+            Console.WriteLine(monChien.ToString());
 
         }
     }

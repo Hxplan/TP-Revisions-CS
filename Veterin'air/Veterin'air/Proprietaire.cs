@@ -253,13 +253,15 @@ namespace Veterin_air
         }
 
         // Soiger un animal du propriétaire en déclarant le motif
-        public void faireSoigner(Animal unAnimal, MotifConsultation leMotif)
+        public void faireSoigner(Animal unAnimal)
         {
-            VerifierAnimalDuProprietaire(unAnimal);
+            string messageException = "";
+
+            messageException = VerifierAnimalDuProprietaire(unAnimal, messageException);
 
             float tarif;
 
-            switch (leMotif)
+            switch (this._motif)
             {
                 case MotifConsultation.ControleAnnuel:
                     tarif = 35;
@@ -281,11 +283,11 @@ namespace Veterin_air
                     tarif = 120;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(leMotif), "Motif de consultation non reconnu.");
+                    throw new ArgumentOutOfRangeException(nameof(this._motif), "Motif de consultation non reconnu.");
             }
 
             this.facturer(tarif);
-            _motif = leMotif;
+            this.setMotif(MotifConsultation.Inconnu);
         }
 
         // facturer le propriétaire
@@ -304,11 +306,7 @@ namespace Veterin_air
             string messageException = "";
             bool mauvaisRegime = false;
 
-            if (!lesAnimaux.Contains(unAnimal))
-            {
-                messageException = $"L'animal '{unAnimal.nom}' n'appartient pas à ce propriétaire.";
-                
-            }
+            messageException = VerifierAnimalDuProprietaire(unAnimal, messageException);
 
             if (unAnimal.testRegimeAlimentaire(typeRegime))
             {
@@ -356,12 +354,14 @@ namespace Veterin_air
 
         }
 
-        private void VerifierAnimalDuProprietaire(Animal unAnimal)
+        private string VerifierAnimalDuProprietaire(Animal unAnimal, string messageException)
         {
-            if (unAnimal == null)
-                throw new ArgumentNullException(nameof(unAnimal));
-            if (!lesAnimaux.Contains(unAnimal) || unAnimal.leProprietaire != this)
-                throw new InvalidOperationException("Cet animal n'appartient pas à ce propriétaire.");
+            if (!lesAnimaux.Contains(unAnimal))
+            {
+                messageException = $"L'animal '{unAnimal.nom}' n'appartient pas à ce propriétaire.";
+                return messageException;
+            }
+            return messageException;
         }
         #endregion
 
