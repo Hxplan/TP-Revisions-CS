@@ -15,9 +15,9 @@ namespace Veterin_air
         private float _poids; //en gramme
         private string _numeroPuce;
 
-        private Espece _espece;       
+        private Espece _espece;
+        public const float PoidsMaximum = 1000000f; // 1 000 kg, exprimés en grammes. 
         private List<RegimeAlimentaire> lesRegimesAlimentaires = new List<RegimeAlimentaire>();
-
         private Proprietaire _leProprietaire;
 
         #endregion
@@ -29,11 +29,11 @@ namespace Veterin_air
             get { return _nom; }
             set 
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Le nom ne peut pas être vide ou nul.");
                 }
-                _nom = value;
+                _nom = value.Trim();
             }
             
         }
@@ -58,9 +58,10 @@ namespace Veterin_air
             get { return _poids; }
             set
             {
-                if (value < 0 || value > 1000)
+                if (float.IsNaN(value) || float.IsInfinity(value) || value < 0 || value > PoidsMaximum)
                 {
-                    throw new ArgumentException("Le poids doit être compris entre 0 et 50000.");
+
+                    throw new ArgumentException("Le poids doit être compris entre 0 et 1 000 000 grammes.");
                 }
                 _poids = value;
             }
@@ -82,7 +83,17 @@ namespace Veterin_air
         public Espece espece
         {
             get { return _espece; }
-            set { _espece = value; }
+            set
+            {
+                if (!Enum.IsDefined(typeof(Espece), value))
+                    throw new ArgumentException("Espèce non reconnue.");
+                _espece = value;
+            }
+        }
+
+        public string RegimesAlimentairesDescription
+        {
+            get { return string.Join(", ", lesRegimesAlimentaires); }
         }
 
         public List<RegimeAlimentaire> LesRegimesAlimentaires
@@ -206,31 +217,25 @@ namespace Veterin_air
 
         public void Grossir(float poids)
         {
-            poids += poids;
-            if (poids < 0)
-            {
-                throw new ArgumentException("Le poids ne peut pas être négatif.");
-            }
+            VerifierVariationPoids(poids);
+            this.poids += poids;
         }
 
         public void FaireduSport(float poids)
         {
-            poids -= poids;
-            if (poids < 0)
-            {
-                throw new ArgumentException("Le poids ne peut pas être négatif.");
-            }
+            VerifierVariationPoids(poids);
+            this.poids -= poids;
         }
 
         public void Peser(float poids)
         {
+            this.poids = poids;
+        }
 
-            poids += poids;
-            if (poids < 0)
-            {
-                throw new ArgumentException("Le poids ne peut pas être négatif.");
-            }
-
+        private static void VerifierVariationPoids(float quantite)
+        {
+            if (float.IsNaN(quantite) || float.IsInfinity(quantite) || quantite <= 0)
+                throw new ArgumentException("La variation de poids doit être strictement positive.");
         }
 
         public void EstEnSurpoids()
@@ -260,6 +265,8 @@ namespace Veterin_air
 
         public void AddUnRegimeAlimentaire(RegimeAlimentaire regime)
         {
+            if (!Enum.IsDefined(typeof(RegimeAlimentaire), regime) || regime == RegimeAlimentaire.Inconnu)
+                throw new ArgumentException("Choisissez un régime alimentaire connu.");
             if (!lesRegimesAlimentaires.Contains(regime))
             {
                 lesRegimesAlimentaires.Add(regime);
@@ -268,12 +275,13 @@ namespace Veterin_air
 
         public void AddRegimeAlimentaire(List<RegimeAlimentaire> regimes)
         {
+            if (regimes == null)
+                throw new ArgumentNullException(nameof(regimes));
+            if (regimes.Any(r => !Enum.IsDefined(typeof(RegimeAlimentaire), r) || r == RegimeAlimentaire.Inconnu))
+                throw new ArgumentException("Choisissez des régimes alimentaires connus.");
             foreach (RegimeAlimentaire regime in regimes)
             {
-                if (!lesRegimesAlimentaires.Contains(regime))
-                {
-                    lesRegimesAlimentaires.Add(regime);
-                }
+                AddUnRegimeAlimentaire(regime);
             }
         }
         #endregion

@@ -316,7 +316,6 @@ namespace Veterin_air
 
         public void nourrirAnimal(Animal unAnimal, RegimeAlimentaire typeRegime)
         {
-
             string messageException = "";
             bool mauvaisRegime = false;
 
@@ -330,7 +329,6 @@ namespace Veterin_air
             {
                 messageException = $"Régime Alimentaire de '{unAnimal.nom}' non respecté, son régime alimentaire est ";
                 mauvaisRegime = true;
-
             }
 
             int gainGrammes;
