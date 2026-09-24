@@ -92,7 +92,30 @@ namespace Veterin_air
             }
             return copieDesAnimaux;
         }
-        
+
+        //Get/Set Motif
+        public MotifConsultation getMotif()
+        {
+            return _motif;
+        }
+
+        public void setMotif(MotifConsultation motif)
+        {
+            _motif = motif;
+        }
+
+
+        //Get/Set Moyen de paiement
+        public MoyenPaiement getMoyPaiement()
+        {
+            return _moyPaiement;
+        }
+
+        public void setMoyPaiement(MoyenPaiement moyPaiement)
+        {
+            _moyPaiement = moyPaiement;
+        }
+
 
         #endregion
 
@@ -289,15 +312,28 @@ namespace Veterin_air
 
         public override string ToString()
         {
-            string description = this.nom + " [" + this.soldeCompte + " €, " + this._moyPaiement + "]";
+            string description = "\n" + 
+                this.nom + " " + this.prenom +"\n" +
+                "Solde de : " + this.soldeCompte + " €\n" +
+                "Moyen de paiement : " + this._moyPaiement + "\n" +
+                "----------------------------\n";
 
             description += "\nListe des animaux de compagnie : \n";
 
-            foreach (Animal unAnimal in lesAnimaux)
+            if(this.lesAnimaux.Count() == 0)
             {
-                description += "    - " + unAnimal.ToString() + "\n";
+                description += "    - aucun animal de compagnie";
+                return description;
             }
-            return description;
+            else
+            {
+                foreach (Animal unAnimal in lesAnimaux)
+                {
+                    description += "    - " + unAnimal.ToString() + "\n";
+                }
+                return description;
+            }
+            
         }
 
         #endregion

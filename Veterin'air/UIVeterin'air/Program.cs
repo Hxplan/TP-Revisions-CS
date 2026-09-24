@@ -22,7 +22,11 @@ namespace UIVeterin_air
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            //Application.Run(new Form1());
+
+            Demo.demo1_CreationObjets();
+
+            
         }
     }
 }
