@@ -13,14 +13,13 @@ namespace UIVeterin_air
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new UI());
+            Application.Run(new UI());
 
             #region Demo
 
             //Demo.demo1_CreationObjets();
 
             //Demo.demo2_NourirAnimal();
-
             //Demo.demo3_NourirAnimalException();
 
             //Demo.demo4_NourirAnimalException2();
@@ -30,6 +29,7 @@ namespace UIVeterin_air
             //Demo.demo6_SoignerAnimalException();
 
             //Demo.demo7_SoignerAnimalException2();
+
             #endregion
         }
     }
