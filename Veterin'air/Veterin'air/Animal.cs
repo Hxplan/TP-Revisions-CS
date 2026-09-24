@@ -14,17 +14,17 @@ namespace Veterin_air
         private int _age;
         private float _poids; //en gramme
         private string _numeroPuce;
-        private Espece _espece;
-        private Proprietaire _leProprietaire;
-        private RegimeAlimentaire _regimeAlimentaire;
 
+        private Espece _espece;       
         private List<RegimeAlimentaire> lesRegimesAlimentaires = new List<RegimeAlimentaire>();
+
+        private Proprietaire _leProprietaire;
 
         #endregion
 
         #region Propriétés
 
-        public string Nom
+        public string nom
         {
             get { return _nom; }
             set 
@@ -60,7 +60,7 @@ namespace Veterin_air
             {
                 if (value < 0 || value > 1000)
                 {
-                    throw new ArgumentException("Le poids doit être compris entre 0 et 1000.");
+                    throw new ArgumentException("Le poids doit être compris entre 0 et 50000.");
                 }
                 _poids = value;
             }
@@ -111,12 +111,12 @@ namespace Veterin_air
 
         public string getNom()
         {
-            return Nom;
+            return nom;
         }
 
         public void setNom(string nom)
         {
-            Nom = nom;
+            nom = nom;
         }
 
         public int getAge()
@@ -189,7 +189,7 @@ namespace Veterin_air
 
         public Animal(string nom, int age, float poids, string numeroPuce, Espece espece)
         {
-            Nom = nom;
+            this.nom = nom;
             this.age = age;
             this.poids = poids;
             this.numeroPuce = numeroPuce;
@@ -282,7 +282,7 @@ namespace Veterin_air
 
         public override string ToString()
         {
-            return $"Nom: {Nom}, {age} ans,{poids/1000f} kg\n" +
+            return $"nom: {nom}, {age} ans,{poids/1000f} kg\n" +
                 $"      Numéro de puce: {numeroPuce} | Espèce: {espece}\n";
         }
         #endregion

@@ -15,8 +15,9 @@ namespace UIVeterin_air
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new UI());
 
-            Demo.demo1_CreationObjets();
-           
+            //Demo.demo1_CreationObjets();
+
+            Demo.demo2_NourirAnimal();
         }
     }
 }

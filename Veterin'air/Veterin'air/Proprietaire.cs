@@ -227,7 +227,7 @@ namespace Veterin_air
         }
 
         // Soiger un animal du propriétaire en déclarant le motif
-        public void soigner(Animal unAnimal, MotifConsultation leMotif)
+        public void faireSoigner(Animal unAnimal, MotifConsultation leMotif)
         {
             string messageException = "";
 
@@ -273,14 +273,22 @@ namespace Veterin_air
         }
 
 
-        public void nourrir(Animal unAnimal, RegimeAlimentaire typeRegime)
+        public void nourrirAnimal(Animal unAnimal, RegimeAlimentaire typeRegime)
         {
             string messageException = "";
+            bool mauvaisRegime = false;
+
+            if (!lesAnimaux.Contains(unAnimal))
+            {
+                messageException = $"L'animal '{unAnimal.nom}' n'appartient pas à ce propriétaire.";
+                
+            }
+
 
             if (unAnimal.testRegimeAlimentaire(typeRegime))
             {
-                messageException = "Régime Alimentaire non respecté";
-                throw new Exception(messageException);
+                messageException = $"Régime Alimentaire de '{unAnimal.nom}' non respecté, son régime alimentaire est ";
+                mauvaisRegime = true;
             }
 
             int gainGrammes;
@@ -303,6 +311,22 @@ namespace Veterin_air
                     throw new ArgumentOutOfRangeException(nameof(typeRegime), "Type d'aliment invalide.");
             }
 
+            if (messageException != "")
+            {
+                
+
+                if (mauvaisRegime)
+                {
+                     // On renseigne la liste dans l'exception
+
+                    foreach (RegimeAlimentaire unRegime in unAnimal.LesRegimesAlimentaires)
+                        messageException += "\n" + "- " + unRegime.ToString();
+                }
+                Exception animalEx = new Exception(messageException);
+                animalEx.Data["régime"] = unAnimal.LesRegimesAlimentaires;
+                throw animalEx;
+            }
+
             unAnimal.Grossir(gainGrammes);
 
         }
@@ -315,14 +339,13 @@ namespace Veterin_air
             string description = "\n" + 
                 this.nom + " " + this.prenom +"\n" +
                 "Solde de : " + this.soldeCompte + " €\n" +
-                "Moyen de paiement : " + this._moyPaiement + "\n" +
-                "----------------------------\n";
+                "Moyen de paiement : " + this._moyPaiement + "\n";
 
-            description += "\nListe des animaux de compagnie : \n";
+            description += "\nListe des animaux de compagnie ("+ lesAnimaux.Count() +"): \n";
 
             if(this.lesAnimaux.Count() == 0)
             {
-                description += "    - aucun animal de compagnie";
+                description += "    - aucun animal de compagnie\n";
                 return description;
             }
             else
