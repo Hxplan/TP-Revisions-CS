@@ -56,9 +56,14 @@ namespace UIVeterin_air
 
             Console.WriteLine("===== Nourir =====");
 
-            unProprietaire.nourrirAnimal(monChat, RegimeAlimentaire.Herbivore);
-            Console.WriteLine(monChat.ToString());
-
+            try
+            {
+                unProprietaire.nourrirAnimal(monChat, RegimeAlimentaire.Herbivore);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception levée : \n" + ex.Message);
+            }
         }
 
         public static void demo4_NourirAnimalException2()
@@ -73,8 +78,14 @@ namespace UIVeterin_air
 
             Console.WriteLine("===== Nourir =====");
 
-            unProprietaire.nourrirAnimal(monChat, RegimeAlimentaire.Carnivore);
-            Console.WriteLine(monChat.ToString());
+            try
+            {
+                unProprietaire.nourrirAnimal(monChat, RegimeAlimentaire.Carnivore);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception levée : \n" + ex.Message);
+            }
 
         }
 
@@ -111,8 +122,15 @@ namespace UIVeterin_air
             Console.WriteLine(unProprietaire.ToString());
             Console.WriteLine("===== Soigner =====");
 
-            unProprietaire.faireSoigner(monChien);
-            Console.WriteLine(unProprietaire.ToString());
+            try
+            {
+                unProprietaire.faireSoigner(monChien);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception levée : \n" + ex.Message);
+            }
+
         }
 
         public static void demo7_SoignerAnimalException2()
@@ -129,8 +147,14 @@ namespace UIVeterin_air
             Console.WriteLine(unProprietaire.ToString());
             Console.WriteLine("===== Soigner =====");
 
-            unProprietaire.faireSoigner(monChien);
-            Console.WriteLine(unProprietaire.ToString());
+            try
+            {
+                unProprietaire.faireSoigner(monChien);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception levée : \n" + ex.Message);
+            }
         }
     }
 }
