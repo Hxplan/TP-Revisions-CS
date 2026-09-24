@@ -20,16 +20,12 @@ namespace UIVeterin_air
             //Demo.demo1_CreationObjets();
 
             //Demo.demo2_NourirAnimal();
-<<<<<<< Updated upstream
-
             //Demo.demo3_NourirAnimalException();
 
             //Demo.demo4_NourirAnimalException2();
 
-            Demo.demo5_SoignerAnimal();
+            //Demo.demo5_SoignerAnimal();
             #endregion
-=======
->>>>>>> Stashed changes
         }
     }
 }

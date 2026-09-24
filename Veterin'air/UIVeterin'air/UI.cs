@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -213,7 +213,9 @@ namespace UIVeterin_air
             {
                 if (cboMotif.SelectedItem == null)
                     throw new ArgumentException("Choisissez un motif de consultation.");
-                ObtenirProprietaireSelectionne().faireSoigner(a, (MotifConsultation)cboMotif.SelectedItem);
+                Proprietaire prop = ObtenirProprietaireSelectionne();
+                prop.setMotif((MotifConsultation)cboMotif.SelectedItem);
+                prop.faireSoigner(a);
             }, "a été soigné. Le tarif a été débité du compte du propriétaire.");
         }
 
