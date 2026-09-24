@@ -115,7 +115,7 @@ namespace UIVeterin_air
             Console.WriteLine(unProprietaire.ToString());
         }
 
-        public static void demo6_SoignerAnimalException2()
+        public static void demo7_SoignerAnimalException2()
         {
 
             Proprietaire unProprietaire = new Proprietaire("Dupont", "Jean");
