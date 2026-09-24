@@ -13,7 +13,7 @@ namespace UIVeterin_air
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new UI());
+            Application.Run(new UI());
 
             #region Demo
 
@@ -25,7 +25,7 @@ namespace UIVeterin_air
 
             //Demo.demo4_NourirAnimalException2();
 
-            Demo.demo5_SoignerAnimal();
+            //Demo.demo5_SoignerAnimal();
 
             //Demo.demo6_SoignerAnimalException();
 
