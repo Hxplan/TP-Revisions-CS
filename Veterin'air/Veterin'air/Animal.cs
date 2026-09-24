@@ -75,6 +75,7 @@ namespace Veterin_air
                 {
                     throw new ArgumentException("Le numéro de puce doit être composé de 15 caractères.");
                 }
+                _numeroPuce = value;
             }
         }
 
@@ -103,6 +104,75 @@ namespace Veterin_air
             set { _leProprietaire = value; }
         }
 
+
+        #endregion
+
+        #region Accesseurs (getteurs/setteurs)
+
+        public string getNom()
+        {
+            return Nom;
+        }
+
+        public void setNom(string nom)
+        {
+            Nom = nom;
+        }
+
+        public int getAge()
+        {
+            return age;
+        }
+
+        public void setAge(int age)
+        {
+            this.age = age;
+        }
+
+        public float getPoids()
+        {
+            return poids;
+        }
+
+        public void setPoids(float poids)
+        {
+            this.poids = poids;
+        }
+
+        public string getNumeroPuce()
+        {
+            return numeroPuce;
+        }
+
+        public void setNumeroPuce(string numeroPuce)
+        {
+            this.numeroPuce = numeroPuce;
+        }
+
+        public Espece getEspece()
+        {
+            return espece;
+        }
+
+        public void setEspece(Espece espece)
+        {
+            this.espece = espece;
+        }
+
+        public Proprietaire getLeProprietaire()
+        {
+            return leProprietaire;
+        }
+
+        public void setLeProprietaire(Proprietaire leProprietaire)
+        {
+            this.leProprietaire = leProprietaire;
+        }
+
+        public List<RegimeAlimentaire> getLesRegimesAlimentaires()
+        {
+            return LesRegimesAlimentaires;
+        }
 
         #endregion
 
