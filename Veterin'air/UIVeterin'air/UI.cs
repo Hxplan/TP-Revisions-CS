@@ -36,33 +36,40 @@ namespace UIVeterin_air
 
         private void UI_Load(object sender, EventArgs e)
         {
-            cboEspece.DataSource = Enum.GetValues(typeof(Espece));
-            RegimeAlimentaire[] regimes = Enum.GetValues(typeof(RegimeAlimentaire))
-                .Cast<RegimeAlimentaire>().Where(r => r != RegimeAlimentaire.Inconnu).ToArray();
-            chkRegimes.Items.AddRange(regimes.Cast<object>().ToArray());
-            cboAlimentation.DataSource = regimes;
-            cboMotif.DataSource = Enum.GetValues(typeof(MotifConsultation))
-                .Cast<MotifConsultation>().Where(m => m != MotifConsultation.Inconnu).ToArray();
+            try
+            {
+                cboEspece.DataSource = Enum.GetValues(typeof(Espece));
+                RegimeAlimentaire[] regimes = Enum.GetValues(typeof(RegimeAlimentaire))
+                    .Cast<RegimeAlimentaire>().Where(r => r != RegimeAlimentaire.Inconnu).ToArray();
+                chkRegimes.Items.AddRange(regimes.Cast<object>().ToArray());
+                cboAlimentation.DataSource = regimes;
+                cboMotif.DataSource = Enum.GetValues(typeof(MotifConsultation));
+                cboMotif.SelectedItem = MotifConsultation.Inconnu;
 
-            numPoids.Maximum = (decimal)Animal.PoidsMaximum;
-            numVariation.Maximum = (decimal)Animal.PoidsMaximum;
-            AjouterColonne(nameof(Animal.nom), "nom", 100);
-            AjouterColonne(nameof(Animal.espece), "Espèce", 85);
-            AjouterColonne(nameof(Animal.age), "Âge (ans)", 75);
-            AjouterColonne(nameof(Animal.poids), "Poids (g)", 90);
-            AjouterColonne(nameof(Animal.numeroPuce), "Numéro de puce", 140);
-            AjouterColonne(nameof(Animal.RegimesAlimentairesDescription), "Régimes autorisés", 170);
-            DataGridView.Columns[nameof(Animal.poids)].DefaultCellStyle.Format = "N1";
+                numPoids.Maximum = (decimal)Animal.PoidsMaximum;
+                numVariation.Maximum = (decimal)Animal.PoidsMaximum;
+                AjouterColonne(nameof(Animal.nom), "nom", 100);
+                AjouterColonne(nameof(Animal.espece), "Espèce", 85);
+                AjouterColonne(nameof(Animal.age), "Âge (ans)", 75);
+                AjouterColonne(nameof(Animal.poids), "Poids (g)", 90);
+                AjouterColonne(nameof(Animal.numeroPuce), "Numéro de puce", 140);
+                AjouterColonne(nameof(Animal.RegimesAlimentairesDescription), "Régimes autorisés", 170);
+                DataGridView.Columns[nameof(Animal.poids)].DefaultCellStyle.Format = "N1";
 
-            sourceProprietaires.DataSource = lesProprietaires;
-            listProprietaires.DisplayMember = nameof(Proprietaire.nomComplet);
-            listProprietaires.DataSource = sourceProprietaires;
-            sourceAnimaux.DataSource = lesAnimaux;
-            DataGridView.DataSource = sourceAnimaux;
-            interfaceInitialisee = true;
-            ViderChamps();
-            ActualiserListe();
-            lblStatut.Text = "Commencez par ajouter un propriétaire. Les données sont conservées pendant cette session.";
+                sourceProprietaires.DataSource = lesProprietaires;
+                listProprietaires.DisplayMember = nameof(Proprietaire.nomComplet);
+                listProprietaires.DataSource = sourceProprietaires;
+                sourceAnimaux.DataSource = lesAnimaux;
+                DataGridView.DataSource = sourceAnimaux;
+                interfaceInitialisee = true;
+                ViderChamps();
+                ActualiserListe();
+                lblStatut.Text = "Commencez par ajouter un propriétaire. Les données sont conservées pendant cette session.";
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
         }
 
         private void AjouterColonne(string propriete, string titre, int largeur)
@@ -84,10 +91,13 @@ namespace UIVeterin_air
 
         private void btnAjouterProprietaire_Click(object sender, EventArgs e)
         {
-            ExecuterAction(() =>
+            try
             {
+                if (string.IsNullOrWhiteSpace(txtNomProprietaire.Text) || string.IsNullOrWhiteSpace(txtPrenomProprietaire.Text))
+                    throw new ArgumentException("Le nom et le prénom du propriétaire sont obligatoires.");
+
                 Proprietaire proprietaire = new Proprietaire(
-                    txtNomProprietaire.Text, txtPrenomProprietaire.Text, (float)numSoldeInitial.Value);
+                    txtNomProprietaire.Text.Trim(), txtPrenomProprietaire.Text.Trim(), (float)numSoldeInitial.Value);
                 lesProprietaires.Add(proprietaire);
                 sourceProprietaires.ResetBindings(false);
                 listProprietaires.SelectedIndex = lesProprietaires.IndexOf(proprietaire);
@@ -98,25 +108,52 @@ namespace UIVeterin_air
                 ActualiserListe();
                 lblStatut.Text = "Propriétaire ajouté : " + proprietaire.nomComplet + ". Vous pouvez créer son animal.";
                 txtNom.Focus();
-            });
+            }
+            catch (ArgumentException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
         }
 
         private void listProprietaires_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!interfaceInitialisee) return;
-            ViderChamps();
-            ActualiserListe();
+            try
+            {
+                if (!interfaceInitialisee) return;
+                ViderChamps();
+                ActualiserListe();
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
         }
 
         private void btnDeposer_Click(object sender, EventArgs e)
         {
-            ExecuterAction(() =>
+            try
             {
                 Proprietaire proprietaire = ObtenirProprietaireSelectionne();
                 proprietaire.deposerCompte((float)numDepot.Value);
                 ActualiserSolde();
                 lblStatut.Text = "Dépôt effectué pour " + proprietaire.nomComplet + ".";
-            });
+            }
+            catch (ArgumentException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
         }
 
         private Proprietaire ObtenirProprietaireSelectionne()
@@ -133,7 +170,7 @@ namespace UIVeterin_air
 
         private void btnAjouter_Click(object sender, EventArgs e)
         {
-            ExecuterAction(() =>
+            try
             {
                 Proprietaire proprietaire = ObtenirProprietaireSelectionne();
                 if (cboEspece.SelectedItem == null)
@@ -153,24 +190,55 @@ namespace UIVeterin_air
                 ActualiserListe(animal);
                 ViderChamps();
                 lblStatut.Text = animal.nom + " a été ajouté à la liste de " + proprietaire.nomComplet + ".";
-            });
+            }
+            catch (ArgumentException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
         }
 
         private void btnVider_Click(object sender, EventArgs e)
         {
-            ViderChamps();
+            try
+            {
+                ViderChamps();
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
         }
 
         private void btnSupprimer_Click(object sender, EventArgs e)
         {
-            ExecuterAction(() =>
+            try
             {
                 Proprietaire proprietaire = ObtenirProprietaireSelectionne();
                 Animal animal = ObtenirAnimalSelectionne();
                 proprietaire.rmAnimal(proprietaire.getLesAnimaux().IndexOf(animal));
                 ActualiserListe();
                 lblStatut.Text = animal.nom + " a été retiré de la liste du propriétaire.";
-            });
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
         }
 
         #endregion
@@ -179,69 +247,145 @@ namespace UIVeterin_air
 
         private void btnVieillir_Click(object sender, EventArgs e)
         {
-            ExecuterSurAnimal(a => a.Vieillir(), "a vieilli d'un an.");
-        }
-
-        private void btnNourrir_Click(object sender, EventArgs e)
-        {
-            ExecuterSurAnimal(a =>
-            {
-                if (cboAlimentation.SelectedItem == null)
-                    throw new ArgumentException("Choisissez le type de repas.");
-                ObtenirProprietaireSelectionne().nourrirAnimal(a, (RegimeAlimentaire)cboAlimentation.SelectedItem);
-            }, "a été nourri.");
-        }
-
-        private void btnGrossir_Click(object sender, EventArgs e)
-        {
-            ExecuterSurAnimal(a => a.Grossir((float)numVariation.Value), "a pris du poids.");
-        }
-
-        private void btnSport_Click(object sender, EventArgs e)
-        {
-            ExecuterSurAnimal(a => a.FaireduSport((float)numVariation.Value), "a fait du sport.");
-        }
-
-        private void btnPeser_Click(object sender, EventArgs e)
-        {
-            ExecuterSurAnimal(a => a.Peser((float)numVariation.Value), "a été pesé.");
-        }
-
-        private void btnSoigner_Click(object sender, EventArgs e)
-        {
-            ExecuterSurAnimal(a =>
-            {
-                if (cboMotif.SelectedItem == null)
-                    throw new ArgumentException("Choisissez un motif de consultation.");
-                Proprietaire prop = ObtenirProprietaireSelectionne();
-                prop.setMotif((MotifConsultation)cboMotif.SelectedItem);
-                prop.faireSoigner(a);
-            }, "a été soigné. Le tarif a été débité du compte du propriétaire.");
-        }
-
-        private void ExecuterSurAnimal(Action<Animal> action, string resultat)
-        {
-            ExecuterAction(() =>
-            {
-                Animal animal = ObtenirAnimalSelectionne();
-                action(animal);
-                ActualiserListe(animal);
-                lblStatut.Text = animal.nom + " " + resultat;
-            });
-        }
-
-
-        private void ExecuterAction(Action action)
-        {
             try
             {
-                action();
+                Animal animal = ObtenirAnimalSelectionne();
+                animal.Vieillir();
+                ActualiserListe(animal);
+                lblStatut.Text = animal.nom + " a vieilli d'un an.";
             }
             catch (ArgumentException ex)
             {
                 AfficherErreur(ex.Message);
             }
             catch (InvalidOperationException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+        }
+
+        private void btnNourrir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Animal animal = ObtenirAnimalSelectionne();
+                if (cboAlimentation.SelectedItem == null)
+                    throw new ArgumentException("Choisissez le type de repas.");
+                Proprietaire prop = ObtenirProprietaireSelectionne();
+                prop.nourrirAnimal(animal, (RegimeAlimentaire)cboAlimentation.SelectedItem);
+                ActualiserListe(animal);
+                lblStatut.Text = animal.nom + " a été nourri.";
+            }
+            catch (ArgumentException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+        }
+
+        private void btnGrossir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Animal animal = ObtenirAnimalSelectionne();
+                animal.Grossir((float)numVariation.Value);
+                ActualiserListe(animal);
+                lblStatut.Text = animal.nom + " a pris du poids.";
+            }
+            catch (ArgumentException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+        }
+
+        private void btnSport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Animal animal = ObtenirAnimalSelectionne();
+                animal.FaireduSport((float)numVariation.Value);
+                ActualiserListe(animal);
+                lblStatut.Text = animal.nom + " a fait du sport.";
+            }
+            catch (ArgumentException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+        }
+
+        private void btnPeser_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Animal animal = ObtenirAnimalSelectionne();
+                animal.Peser((float)numVariation.Value);
+                ActualiserListe(animal);
+                lblStatut.Text = animal.nom + " a été pesé.";
+            }
+            catch (ArgumentException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+        }
+
+        private void btnSoigner_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Animal animal = ObtenirAnimalSelectionne();
+                if (cboMotif.SelectedItem == null)
+                    throw new ArgumentException("Choisissez un motif de consultation.");
+                Proprietaire prop = ObtenirProprietaireSelectionne();
+                prop.setMotif((MotifConsultation)cboMotif.SelectedItem);
+                prop.faireSoigner(animal);
+                cboMotif.SelectedItem = prop.getMotif();
+                ActualiserListe(animal);
+                lblStatut.Text = animal.nom + " a été soigné. Le tarif a été débité du compte du propriétaire.";
+            }
+            catch (ArgumentException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                AfficherErreur(ex.Message);
+            }
+            catch (Exception ex)
             {
                 AfficherErreur(ex.Message);
             }
@@ -263,47 +407,68 @@ namespace UIVeterin_air
 
         private void ActualiserListe(Animal animalSelectionne = null)
         {
-            Proprietaire proprietaire = listProprietaires.SelectedItem as Proprietaire;
-
-            lesAnimaux.Clear();
-            if (proprietaire != null)
-                lesAnimaux.AddRange(proprietaire.getLesAnimaux());
-            sourceAnimaux.ResetBindings(false);
-            DataGridView.ClearSelection();
-            if (animalSelectionne != null)
+            try
             {
-                int index = lesAnimaux.IndexOf(animalSelectionne);
-                if (index >= 0)
-                {
-                    DataGridView.CurrentCell = DataGridView.Rows[index].Cells[0];
-                    DataGridView.Rows[index].Selected = true;
-                }
-            }
+                Proprietaire proprietaire = listProprietaires.SelectedItem as Proprietaire;
 
-            GroupBoxNvPatient.Enabled = proprietaire != null;
-            GroupBoxNvPatient.Text = proprietaire == null ? "2. Créer un animal" : "2. Créer un animal pour " + proprietaire.nomComplet;
-            groupAnimaux.Text = proprietaire == null ? "Animaux" :
-                "Animaux de " + proprietaire.nomComplet + " (" + lesAnimaux.Count + ")";
-            btnDeposer.Enabled = proprietaire != null;
-            ActualiserSolde();
-            ActualiserBoutons();
+                lesAnimaux.Clear();
+                if (proprietaire != null)
+                    lesAnimaux.AddRange(proprietaire.getLesAnimaux());
+                sourceAnimaux.ResetBindings(false);
+                DataGridView.ClearSelection();
+                if (animalSelectionne != null)
+                {
+                    int index = lesAnimaux.IndexOf(animalSelectionne);
+                    if (index >= 0)
+                    {
+                        DataGridView.CurrentCell = DataGridView.Rows[index].Cells[0];
+                        DataGridView.Rows[index].Selected = true;
+                    }
+                }
+
+                GroupBoxNvPatient.Enabled = proprietaire != null;
+                GroupBoxNvPatient.Text = proprietaire == null ? "2. Créer un animal" : "2. Créer un animal pour " + proprietaire.nomComplet;
+                groupAnimaux.Text = proprietaire == null ? "Animaux" :
+                    "Animaux de " + proprietaire.nomComplet + " (" + lesAnimaux.Count + ")";
+                btnDeposer.Enabled = proprietaire != null;
+                ActualiserSolde();
+                ActualiserBoutons();
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
         }
 
         private void ActualiserSolde()
         {
-            Proprietaire proprietaire = listProprietaires.SelectedItem as Proprietaire;
-            lblSolde.Text = proprietaire == null ? "Aucun propriétaire sélectionné" :
-                "Solde : " + proprietaire.soldeCompte.ToString("N2") + " €";
+            try
+            {
+                Proprietaire proprietaire = listProprietaires.SelectedItem as Proprietaire;
+                lblSolde.Text = proprietaire == null ? "Aucun propriétaire sélectionné" :
+                    "Solde : " + proprietaire.soldeCompte.ToString("N2") + " €";
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
         }
 
         private void DataGridView_SelectionChanged(object sender, EventArgs e)
         {
-            if (!interfaceInitialisee) return;
-            ActualiserBoutons();
-            if (DataGridView.SelectedRows.Count == 0) return;
-            Animal animal = DataGridView.SelectedRows[0].DataBoundItem as Animal;
-            if (animal != null && animal.LesRegimesAlimentaires.Count > 0)
-                cboAlimentation.SelectedItem = animal.LesRegimesAlimentaires[0];
+            try
+            {
+                if (!interfaceInitialisee) return;
+                ActualiserBoutons();
+                if (DataGridView.SelectedRows.Count == 0) return;
+                Animal animal = DataGridView.SelectedRows[0].DataBoundItem as Animal;
+                if (animal != null && animal.LesRegimesAlimentaires.Count > 0)
+                    cboAlimentation.SelectedItem = animal.LesRegimesAlimentaires[0];
+            }
+            catch (Exception ex)
+            {
+                AfficherErreur(ex.Message);
+            }
         }
 
         private void ActualiserBoutons()
@@ -319,6 +484,7 @@ namespace UIVeterin_air
             numAge.Value = 0;
             numPoids.Value = 0;
             txtPuce.Clear();
+            cboMotif.SelectedItem = MotifConsultation.Inconnu;
             for (int i = 0; i < chkRegimes.Items.Count; i++)
                 chkRegimes.SetItemChecked(i, false);
             txtNom.Focus();

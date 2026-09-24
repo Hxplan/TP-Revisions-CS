@@ -471,7 +471,7 @@ namespace UIVeterin_air
             this.btnSoigner.Text = "Soigner";
             this.btnSoigner.TabIndex = 12;
             this.btnSoigner.UseVisualStyleBackColor = true;
-            //this.btnSoigner.Click += new System.EventHandler(this.btnSoigner_Click);
+            this.btnSoigner.Click += new System.EventHandler(this.btnSoigner_Click);
             this.groupActions.Controls.Add(this.btnSoigner);
             // lblTarifs
             this.lblTarifs.Name = "lblTarifs";

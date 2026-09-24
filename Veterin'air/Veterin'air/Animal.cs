@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -127,7 +127,7 @@ namespace Veterin_air
 
         public void setNom(string nom)
         {
-            nom = nom;
+            this.nom = nom;
         }
 
         public int getAge()

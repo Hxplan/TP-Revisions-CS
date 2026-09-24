@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -282,6 +282,10 @@ namespace Veterin_air
                 case MotifConsultation.Urgence:
                     tarif = 120;
                     break;
+
+                case MotifConsultation.Inconnu:
+                    throw new ArgumentException("Le motif de consultation a déjà été soigné ou est inconnu.");
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(this._motif), "Motif de consultation non reconnu.");
             }
