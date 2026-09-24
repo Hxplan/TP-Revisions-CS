@@ -55,7 +55,7 @@ namespace UIVeterin_air
             DataGridView.Columns[nameof(Animal.poids)].DefaultCellStyle.Format = "N1";
 
             sourceProprietaires.DataSource = lesProprietaires;
-            listProprietaires.DisplayMember = nameof(Proprietaire.NomComplet);
+            listProprietaires.DisplayMember = nameof(Proprietaire.nomComplet);
             listProprietaires.DataSource = sourceProprietaires;
             sourceAnimaux.DataSource = lesAnimaux;
             DataGridView.DataSource = sourceAnimaux;
@@ -96,7 +96,7 @@ namespace UIVeterin_air
                 numSoldeInitial.Value = 0;
                 ViderChamps();
                 ActualiserListe();
-                lblStatut.Text = "Propriétaire ajouté : " + proprietaire.NomComplet + ". Vous pouvez créer son animal.";
+                lblStatut.Text = "Propriétaire ajouté : " + proprietaire.nomComplet + ". Vous pouvez créer son animal.";
                 txtNom.Focus();
             });
         }
@@ -115,7 +115,7 @@ namespace UIVeterin_air
                 Proprietaire proprietaire = ObtenirProprietaireSelectionne();
                 proprietaire.deposerCompte((float)numDepot.Value);
                 ActualiserSolde();
-                lblStatut.Text = "Dépôt effectué pour " + proprietaire.NomComplet + ".";
+                lblStatut.Text = "Dépôt effectué pour " + proprietaire.nomComplet + ".";
             });
         }
 
@@ -152,7 +152,7 @@ namespace UIVeterin_air
                 proprietaire.addAnimal(animal);
                 ActualiserListe(animal);
                 ViderChamps();
-                lblStatut.Text = animal.nom + " a été ajouté à la liste de " + proprietaire.NomComplet + ".";
+                lblStatut.Text = animal.nom + " a été ajouté à la liste de " + proprietaire.nomComplet + ".";
             });
         }
 
@@ -279,9 +279,9 @@ namespace UIVeterin_air
             }
 
             GroupBoxNvPatient.Enabled = proprietaire != null;
-            GroupBoxNvPatient.Text = proprietaire == null ? "2. Créer un animal" : "2. Créer un animal pour " + proprietaire.NomComplet;
+            GroupBoxNvPatient.Text = proprietaire == null ? "2. Créer un animal" : "2. Créer un animal pour " + proprietaire.nomComplet;
             groupAnimaux.Text = proprietaire == null ? "Animaux" :
-                "Animaux de " + proprietaire.NomComplet + " (" + lesAnimaux.Count + ")";
+                "Animaux de " + proprietaire.nomComplet + " (" + lesAnimaux.Count + ")";
             btnDeposer.Enabled = proprietaire != null;
             ActualiserSolde();
             ActualiserBoutons();

@@ -290,8 +290,9 @@ namespace Veterin_air
 
         public override string ToString()
         {
-            return $"    - nom: {nom}, {age} ans,{poids/1000f} kg\n" +
-                   $"      Numéro de puce: {numeroPuce} | Espèce: {espece}\n";
+            return $"Animal de {this.leProprietaire.nomComplet}:\n" +
+                $"    - nom: {nom}, {age} ans,{poids/1000f} kg\n" +
+                $"      Numéro de puce: {numeroPuce} | Espèce: {espece}\n";
         }
         #endregion
     }

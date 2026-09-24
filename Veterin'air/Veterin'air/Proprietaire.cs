@@ -29,37 +29,22 @@ namespace Veterin_air
         public string nom
         {
             get { return _nom; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Le nom du propriétaire est obligatoire.");
-                _nom = value.Trim();
-            }
+            set { _nom = value; }
         }
 
         public string prenom
         {
             get { return _prenom; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Le prénom du propriétaire est obligatoire.");
-                _prenom = value.Trim();
-            }
+            set { _prenom = value; }
         }
 
         public float soldeCompte
         {
             get { return _soldeCompte; }
-            set
-            {
-                if (float.IsNaN(value) || float.IsInfinity(value) || value < 0)
-                    throw new ArgumentException("Le solde doit être un montant positif ou nul.");
-                _soldeCompte = value;
-            }
+            set { _soldeCompte = value; }
         }
 
-        public string NomComplet
+        public string nomComplet
         {
             get { return prenom + " " + nom; }
         }
@@ -384,8 +369,7 @@ namespace Veterin_air
 
         public override string ToString()
         {
-            string description = "\n" + 
-                this.nom + " " + this.prenom +"\n" +
+            string description = this.prenom + " " + this.nom +"\n" +
                 "Solde de : " + this.soldeCompte + " €\n" +
                 "Moyen de paiement : " + this._moyPaiement + "\n";
 

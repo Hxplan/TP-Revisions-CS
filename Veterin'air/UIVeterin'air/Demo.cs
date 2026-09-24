@@ -32,7 +32,7 @@ namespace UIVeterin_air
         {
             Console.WriteLine("===== Création des objets =====");
 
-            Proprietaire unProprietaire = new Proprietaire("jean", "Dupont");
+            Proprietaire unProprietaire = new Proprietaire("Dupont", "Jean");
 
             Animal monChat = new Animal("chat", 12, 10000, "156898560486587", Espece.Felin);
             monChat.AddUnRegimeAlimentaire(RegimeAlimentaire.Carnivore);
@@ -50,7 +50,7 @@ namespace UIVeterin_air
         {
             Console.WriteLine("===== Création des objets =====");
 
-            Proprietaire unProprietaire = new Proprietaire("jean", "Dupont");
+            Proprietaire unProprietaire = new Proprietaire("Dupont", "Jean");
 
             Animal monChat = new Animal("chat", 12, 10, "156898560486587", Espece.Felin);
             monChat.AddUnRegimeAlimentaire(RegimeAlimentaire.Carnivore);
