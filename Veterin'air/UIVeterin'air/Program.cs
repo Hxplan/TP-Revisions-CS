@@ -25,7 +25,11 @@ namespace UIVeterin_air
 
             //Demo.demo4_NourirAnimalException2();
 
-            Demo.demo5_SoignerAnimal();
+            //Demo.demo5_SoignerAnimal();
+
+            //Demo.demo6_SoignerAnimalException();
+
+            //Demo.demo7_SoignerAnimalException2();
             #endregion
         }
     }

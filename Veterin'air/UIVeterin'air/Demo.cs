@@ -82,17 +82,55 @@ namespace UIVeterin_air
         {
 
             Proprietaire unProprietaire = new Proprietaire("Dupont", "Jean");
+            unProprietaire.setMotif(MotifConsultation.ControleAnnuel);
+            unProprietaire.deposerCompte(300);
 
             Animal monChien = new Animal("chien", 7, 15000, "789541048658745", Espece.Canide);
             monChien.AddUnRegimeAlimentaire(RegimeAlimentaire.Carnivore);
 
             unProprietaire.addAnimal(monChien);
 
+            Console.WriteLine(unProprietaire.ToString());
             Console.WriteLine("===== Soigner =====");
 
             unProprietaire.faireSoigner(monChien);
-            Console.WriteLine(monChien.ToString());
+            Console.WriteLine(unProprietaire.ToString());
+        }
 
+        public static void demo6_SoignerAnimalException()
+        {
+
+            Proprietaire unProprietaire = new Proprietaire("Dupont", "Jean");
+            unProprietaire.deposerCompte(300);
+
+            Animal monChien = new Animal("chien", 7, 15000, "789541048658745", Espece.Canide);
+            monChien.AddUnRegimeAlimentaire(RegimeAlimentaire.Carnivore);
+
+            unProprietaire.addAnimal(monChien);
+
+            Console.WriteLine(unProprietaire.ToString());
+            Console.WriteLine("===== Soigner =====");
+
+            unProprietaire.faireSoigner(monChien);
+            Console.WriteLine(unProprietaire.ToString());
+        }
+
+        public static void demo6_SoignerAnimalException2()
+        {
+
+            Proprietaire unProprietaire = new Proprietaire("Dupont", "Jean");
+            unProprietaire.setMotif(MotifConsultation.ControleAnnuel);
+
+            Animal monChien = new Animal("chien", 7, 15000, "789541048658745", Espece.Canide);
+            monChien.AddUnRegimeAlimentaire(RegimeAlimentaire.Carnivore);
+
+            unProprietaire.addAnimal(monChien);
+
+            Console.WriteLine(unProprietaire.ToString());
+            Console.WriteLine("===== Soigner =====");
+
+            unProprietaire.faireSoigner(monChien);
+            Console.WriteLine(unProprietaire.ToString());
         }
     }
 }
