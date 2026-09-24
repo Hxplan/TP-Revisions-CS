@@ -400,7 +400,7 @@ namespace Veterin_air
             {
                 foreach (Animal unAnimal in lesAnimaux)
                 {
-                    description += "    - " + unAnimal.ToString() + "\n";
+                    description += unAnimal.ToString() + "\n";
                 }
                 return description;
             }

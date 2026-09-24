@@ -40,7 +40,7 @@ namespace UIVeterin_air
             unProprietaire.addAnimal(monChat);
 
             Console.WriteLine("===== Nourir =====");
-
+            Console.WriteLine(monChat.ToString());
             unProprietaire.nourrirAnimal(monChat, RegimeAlimentaire.Carnivore);
             Console.WriteLine(unProprietaire.ToString());
 

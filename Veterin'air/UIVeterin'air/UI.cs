@@ -46,7 +46,7 @@ namespace UIVeterin_air
 
             numPoids.Maximum = (decimal)Animal.PoidsMaximum;
             numVariation.Maximum = (decimal)Animal.PoidsMaximum;
-            AjouterColonne(nameof(Animal.Nom), "Nom", 100);
+            AjouterColonne(nameof(Animal.nom), "nom", 100);
             AjouterColonne(nameof(Animal.espece), "Espèce", 85);
             AjouterColonne(nameof(Animal.age), "Âge (ans)", 75);
             AjouterColonne(nameof(Animal.poids), "Poids (g)", 90);
@@ -152,7 +152,7 @@ namespace UIVeterin_air
                 proprietaire.addAnimal(animal);
                 ActualiserListe(animal);
                 ViderChamps();
-                lblStatut.Text = animal.Nom + " a été ajouté à la liste de " + proprietaire.NomComplet + ".";
+                lblStatut.Text = animal.nom + " a été ajouté à la liste de " + proprietaire.NomComplet + ".";
             });
         }
 
@@ -169,7 +169,7 @@ namespace UIVeterin_air
                 Animal animal = ObtenirAnimalSelectionne();
                 proprietaire.rmAnimal(proprietaire.getLesAnimaux().IndexOf(animal));
                 ActualiserListe();
-                lblStatut.Text = animal.Nom + " a été retiré de la liste du propriétaire.";
+                lblStatut.Text = animal.nom + " a été retiré de la liste du propriétaire.";
             });
         }
 
@@ -188,7 +188,7 @@ namespace UIVeterin_air
             {
                 if (cboAlimentation.SelectedItem == null)
                     throw new ArgumentException("Choisissez le type de repas.");
-                ObtenirProprietaireSelectionne().nourrir(a, (RegimeAlimentaire)cboAlimentation.SelectedItem);
+                ObtenirProprietaireSelectionne().nourrirAnimal(a, (RegimeAlimentaire)cboAlimentation.SelectedItem);
             }, "a été nourri.");
         }
 
@@ -213,7 +213,7 @@ namespace UIVeterin_air
             {
                 if (cboMotif.SelectedItem == null)
                     throw new ArgumentException("Choisissez un motif de consultation.");
-                ObtenirProprietaireSelectionne().soigner(a, (MotifConsultation)cboMotif.SelectedItem);
+                ObtenirProprietaireSelectionne().faireSoigner(a, (MotifConsultation)cboMotif.SelectedItem);
             }, "a été soigné. Le tarif a été débité du compte du propriétaire.");
         }
 
@@ -224,7 +224,7 @@ namespace UIVeterin_air
                 Animal animal = ObtenirAnimalSelectionne();
                 action(animal);
                 ActualiserListe(animal);
-                lblStatut.Text = animal.Nom + " " + resultat;
+                lblStatut.Text = animal.nom + " " + resultat;
             });
         }
 
