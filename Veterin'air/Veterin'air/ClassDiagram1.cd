@@ -8,9 +8,11 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_espece" />
-      <Field Name="_regimeAlimentaire" />
       <Field Name="_leProprietaire" />
     </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="lesRegimesAlimentaires" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Veterin_air.Proprietaire">
     <Position X="7" Y="0.5" Width="2.25" />

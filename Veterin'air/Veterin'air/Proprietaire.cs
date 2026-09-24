@@ -10,7 +10,7 @@ namespace Veterin_air
     {
         #region Champs privés
 
-        private string _nom = "Inconnnu";
+        private string _nom = "Inconnu";
         
         private string _prenom = "Inconnu";
 
@@ -29,19 +29,39 @@ namespace Veterin_air
         public string nom
         {
             get { return _nom; }
-            set { _nom = value; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Le nom du propriétaire est obligatoire.");
+                _nom = value.Trim();
+            }
         }
 
         public string prenom
         {
             get { return _prenom; }
-            set { _prenom = value; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Le prénom du propriétaire est obligatoire.");
+                _prenom = value.Trim();
+            }
         }
 
         public float soldeCompte
         {
             get { return _soldeCompte; }
-            set { _soldeCompte = value; }
+            set
+            {
+                if (float.IsNaN(value) || float.IsInfinity(value) || value < 0)
+                    throw new ArgumentException("Le solde doit être un montant positif ou nul.");
+                _soldeCompte = value;
+            }
+        }
+
+        public string NomComplet
+        {
+            get { return prenom + " " + nom; }
         }
 
         #endregion
@@ -138,7 +158,7 @@ namespace Veterin_air
             this.nom = nom;
             this.prenom = prenom;
             this.soldeCompte = soldeCompte;
-            this.lesAnimaux = lesAnimaux;
+            addLesAnimaux(lesAnimaux);
         }
 
         public Proprietaire(string nom, string prenom, float soldeCompte, List<Animal> lesAnimaux, MotifConsultation motif)
@@ -146,7 +166,7 @@ namespace Veterin_air
             this.nom = nom;
             this.prenom = prenom;
             this.soldeCompte = soldeCompte;
-            this.lesAnimaux = lesAnimaux;
+            addLesAnimaux(lesAnimaux);
             this._motif = motif;
         }
 
@@ -155,7 +175,7 @@ namespace Veterin_air
             this.nom = nom;
             this.prenom = prenom;
             this.soldeCompte = soldeCompte;
-            this.lesAnimaux = lesAnimaux;
+            addLesAnimaux(lesAnimaux);
             this._motif = motif;
             this._moyPaiement = moyPaiement;
         }
@@ -167,38 +187,59 @@ namespace Veterin_air
         // Ajouter un animal à la liste du propriétaire
         public List<Animal> addAnimal(Animal unAnimal)
         {
+            VerifierAjoutAnimal(unAnimal);
             if (!lesAnimaux.Contains(unAnimal))
-                {
-                    lesAnimaux.Add(unAnimal);
-                }
-            
-            return lesAnimaux;
+            {
+                lesAnimaux.Add(unAnimal);
+            }
+            unAnimal.leProprietaire = this;
+            return getLesAnimaux();
+        }
+
+        private void VerifierAjoutAnimal(Animal unAnimal)
+        {
+            if (unAnimal == null)
+                throw new ArgumentNullException(nameof(unAnimal), "L'animal est obligatoire.");
+            if (unAnimal.leProprietaire != null && unAnimal.leProprietaire != this)
+                throw new InvalidOperationException("Cet animal appartient déjà à un autre propriétaire.");
+            if (lesAnimaux.Any(a => a != unAnimal && string.Equals(a.numeroPuce, unAnimal.numeroPuce, StringComparison.OrdinalIgnoreCase)))
+                throw new ArgumentException("Un animal possède déjà ce numéro de puce.");
         }
 
 
         // Ajouter une liste d'animal à la liste du propriétaire
         public List<Animal> addLesAnimaux(List<Animal> lesAnimaux)
         {
+            if (lesAnimaux == null)
+                throw new ArgumentNullException(nameof(lesAnimaux));
+            foreach (Animal unAnimal in lesAnimaux)
+                VerifierAjoutAnimal(unAnimal);
+            if (lesAnimaux.Distinct().GroupBy(a => a.numeroPuce, StringComparer.OrdinalIgnoreCase).Any(g => g.Count() > 1))
+                throw new ArgumentException("Plusieurs animaux possèdent le même numéro de puce.");
             foreach (Animal unAnimal in lesAnimaux)
             {
-                if (!lesAnimaux.Contains(unAnimal))
-                {
-                    lesAnimaux.Add(unAnimal);
-                }
+                addAnimal(unAnimal);
             }
-            return lesAnimaux;
+            return getLesAnimaux();
         }
 
         // Retirer un animal de le liste du propriétaire
         public List<Animal> rmAnimal(int index)
         {
+            if (index < 0 || index >= lesAnimaux.Count)
+                throw new ArgumentOutOfRangeException(nameof(index), "Sélectionnez un animal existant.");
+            Animal animal = lesAnimaux[index];
             lesAnimaux.RemoveAt(index);
-            return lesAnimaux;
+            if (animal.leProprietaire == this)
+                animal.leProprietaire = null;
+            return getLesAnimaux();
         }
 
         // Deposer de l'argent sur le compte du propriétaire
         public float deposerCompte(float montant)
         {
+            if (float.IsNaN(montant) || float.IsInfinity(montant) || montant <= 0)
+                throw new ArgumentException("Le dépôt doit être strictement positif.");
             this.soldeCompte += montant;
             return this.soldeCompte;
         }
@@ -206,11 +247,11 @@ namespace Veterin_air
         // Soiger un animal du propriétaire en déclarant le motif
         public void soigner(Animal unAnimal, MotifConsultation leMotif)
         {
-            string messageException = "";
+            VerifierAnimalDuProprietaire(unAnimal);
 
             float tarif;
 
-            switch (_motif)
+            switch (leMotif)
             {
                 case MotifConsultation.ControleAnnuel:
                     tarif = 35;
@@ -232,32 +273,31 @@ namespace Veterin_air
                     tarif = 120;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(_motif), "Motif de consultation non reconnu.");
-            }
-
-            if (this.soldeCompte < tarif)
-            {
-                messageException += "\nAttention, le solde est insuffisant !";
+                    throw new ArgumentOutOfRangeException(nameof(leMotif), "Motif de consultation non reconnu.");
             }
 
             this.facturer(tarif);
+            _motif = leMotif;
         }
 
         // facturer le propriétaire
         public void facturer(float tarif)
         {
+            if (float.IsNaN(tarif) || float.IsInfinity(tarif) || tarif <= 0)
+                throw new ArgumentException("Le tarif doit être strictement positif.");
+            if (soldeCompte < tarif)
+                throw new InvalidOperationException("Le solde du propriétaire est insuffisant.");
             this.soldeCompte -= tarif;
         }
 
 
         public void nourrir(Animal unAnimal, RegimeAlimentaire typeRegime)
         {
-            string messageException = "";
+            VerifierAnimalDuProprietaire(unAnimal);
 
             if (unAnimal.testRegimeAlimentaire(typeRegime))
             {
-                messageException = "Régime Alimentaire non respecté";
-                throw new Exception(messageException);
+                throw new InvalidOperationException("Régime alimentaire non respecté : choisissez un régime autorisé pour cet animal.");
             }
 
             int gainGrammes;
@@ -282,6 +322,14 @@ namespace Veterin_air
 
             unAnimal.Grossir(gainGrammes);
 
+        }
+
+        private void VerifierAnimalDuProprietaire(Animal unAnimal)
+        {
+            if (unAnimal == null)
+                throw new ArgumentNullException(nameof(unAnimal));
+            if (!lesAnimaux.Contains(unAnimal) || unAnimal.leProprietaire != this)
+                throw new InvalidOperationException("Cet animal n'appartient pas à ce propriétaire.");
         }
         #endregion
 
