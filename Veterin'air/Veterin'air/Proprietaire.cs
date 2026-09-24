@@ -51,34 +51,34 @@ namespace Veterin_air
         // Get/Set nom
         public string getNom()
         {
-            return _nom;
+            return nom;
         }
 
         public void setNom(string nom)
         {
-            _nom = nom;
+            this.nom = nom;
         }
 
         // Get/Set prenom
         public string getPrenom()
         {
-            return _prenom;
+            return prenom;
         }
 
         public void setPrenom(string prenom)
         {
-            _prenom = prenom;
+            this.prenom = prenom;
         }
 
         // Get/Set soldeCompte
-        public string getSolde()
+        public float getSolde()
         {
-            return _nom;
+            return soldeCompte;
         }
 
         public void setSolde(float soldeCompte)
         {
-            _soldeCompte = soldeCompte;
+            this.soldeCompte = soldeCompte;
         }
 
         // Get animaux
